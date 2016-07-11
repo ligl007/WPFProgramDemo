@@ -1,0 +1,4 @@
+D:\Project\WPFProgramDemo\Interface\IProject\bin\Debug\IProject.dll
+D:\Project\WPFProgramDemo\Interface\IProject\bin\Debug\IProject.pdb
+D:\Project\WPFProgramDemo\Interface\IProject\obj\Debug\IProject.dll
+D:\Project\WPFProgramDemo\Interface\IProject\obj\Debug\IProject.pdb
