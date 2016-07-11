@@ -1,7 +1,0 @@
-D:\Project\WPFProgramDemo\Plugs\PathStoryboard\bin\Debug\PathStoryboard.dll
-D:\Project\WPFProgramDemo\Plugs\PathStoryboard\bin\Debug\PathStoryboard.pdb
-D:\Project\WPFProgramDemo\Plugs\PathStoryboard\bin\Debug\IProject.dll
-D:\Project\WPFProgramDemo\Plugs\PathStoryboard\bin\Debug\IProject.pdb
-D:\Project\WPFProgramDemo\Plugs\PathStoryboard\obj\Debug\PathStoryboard.csprojResolveAssemblyReference.cache
-D:\Project\WPFProgramDemo\Plugs\PathStoryboard\obj\Debug\PathStoryboard.dll
-D:\Project\WPFProgramDemo\Plugs\PathStoryboard\obj\Debug\PathStoryboard.pdb
