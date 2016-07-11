@@ -1,4 +1,0 @@
-D:\Project\WPFProgramDemo\Commons\bin\Debug\Commons.dll
-D:\Project\WPFProgramDemo\Commons\bin\Debug\Commons.pdb
-D:\Project\WPFProgramDemo\Commons\obj\Debug\Commons.dll
-D:\Project\WPFProgramDemo\Commons\obj\Debug\Commons.pdb
