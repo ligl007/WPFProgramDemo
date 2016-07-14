@@ -16,6 +16,7 @@ using System.IO;
 using IProject;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition;
+using Commons.Helper;
 
 namespace Shell
 {
@@ -27,6 +28,7 @@ namespace Shell
         public MainWindow()
         {
             InitializeComponent();
+            WindowHelper.CorrectMaximization(this);
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
         }
 
@@ -63,7 +65,5 @@ namespace Shell
             }
 
         }
-
-       
     }
 }

@@ -1,0 +1,358 @@
+﻿<UserControl x:Class="Commons.WindowButtons"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Commons"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="SeparatorBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+
+            <GradientStop Color="#4C000000" Offset="0"/>
+            <GradientStop Color="#00000000" Offset="1"/>
+
+            <!--<GradientStop Color="#629CC0" Offset="0" />
+            <GradientStop Color="Transparent" Offset="1" />-->
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="MouseOverBrush1" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#99ffffff" Offset="0" />
+            <GradientStop Color="Transparent" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="PressedBrush1" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#99d5d5d5" Offset="0" />
+            <GradientStop Color="Transparent" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="MouseOverBrush2" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#fe5a5a" Offset="0" />
+            <GradientStop Color="Transparent" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="PressedBrush2" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#d92f2f" Offset="0" />
+            <GradientStop Color="Transparent" Offset="1" />
+        </LinearGradientBrush>
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+            <Border x:Name="Border" BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}" >
+                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Margin="{TemplateBinding Padding}" />
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="CloseButtonTemplate" TargetType="Button">
+            <Border x:Name="Border" BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="0,5,0,0">
+                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Margin="{TemplateBinding Padding}" />
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ToggleButtonTemplate" TargetType="ToggleButton">
+            <Border x:Name="Border" BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}">
+                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Margin="{TemplateBinding Padding}" />
+            </Border>
+        </ControlTemplate>
+        <Style x:Key="MinimizeButton" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="{StaticResource MouseOverBrush1}"/>
+                    <Setter Property="Padding" Value="0,0,0,2"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="false">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" Value="{StaticResource PressedBrush1}"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="NormalMaxButton" TargetType="ToggleButton">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate  TargetType="ToggleButton">
+                        <Border x:Name="Border" BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}">
+                            <Rectangle HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  x:Name="rectangle"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Margin="{TemplateBinding Padding}" Width="14" Height="12"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="{StaticResource MouseOverBrush1}"/>
+                                <Setter Property="Padding" Value="0,0,0,2"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="false">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Padding" Value="0"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" Value="{StaticResource PressedBrush1}"/>
+                                <Setter Property="Padding" Value="0"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Fill" TargetName="rectangle">
+                                    <Setter.Value>
+                                        <DrawingBrush Stretch="Uniform">
+                                            <DrawingBrush.Drawing>
+                                                <DrawingGroup>
+                                                    <DrawingGroup.Children>
+                                                        <GeometryDrawing Geometry="M 13.9297,0.866638L 13.9297,2.92517L 4.37273,2.92517L 4.37273,0.866638L 13.9297,0.866638 Z M 13.9723,7.09436L 13.9723,9.15289L 4.37361,9.15509L 4.37361,7.09656L 13.9723,7.09436 Z M 4.37486,4.65076L 6.20001,4.65076L 6.2021,4.87726L 4.37694,4.87726L 4.37486,4.65076 Z M 10.4022,5.76544L 10.4022,7.82397L 0.880798,7.82397L 0.880798,5.76544L 10.4022,5.76544 Z M 10.4449,11.9931L 10.4449,14.0517L 0.887886,14.0517L 0.887886,11.9931L 10.4449,11.9931 Z M 0.866669,9.54382L 2.6746,9.54382L 2.67461,10.2731L 0.866676,10.2731L 0.866669,9.54382 Z M 8.65179,10.0754L 10.4769,10.0754L 10.4769,10.2727L 8.65179,10.2727L 8.65179,10.0754 Z M 12.1546,4.64813L 13.9778,4.64819L 13.9808,5.41901L 12.1444,5.41901L 12.1546,4.64813 Z ">
+                                                            <GeometryDrawing.Pen>
+                                                                <Pen Thickness="1.73334" MiterLimit="2.75" Brush="#34000000"/>
+                                                            </GeometryDrawing.Pen>
+                                                        </GeometryDrawing>
+                                                        <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 13.9297,0.873291L 13.9297,2.93182L 4.37273,2.93182L 4.37273,0.873291L 13.9297,0.873291 Z "/>
+                                                        <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 13.9723,7.10101L 13.9723,9.15955L 4.41537,9.15955L 4.41537,7.10101L 13.9723,7.10101 Z "/>
+                                                        <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 4.37695,0.916138L 6.2021,0.916138L 6.2021,9.15955L 4.37695,9.15955L 4.37695,0.916138 Z "/>
+                                                        <GeometryDrawing Brush="#FFFEFEFE" Geometry="M 10.4022,5.77209L 10.4022,7.83063L 0.880806,7.83063L 0.880806,5.77209L 10.4022,5.77209 Z "/>
+                                                        <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 10.4449,11.9998L 10.4449,14.0583L 0.88789,14.0583L 0.88789,11.9998L 10.4449,11.9998 Z "/>
+                                                        <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 0.849468,5.81494L 2.67462,5.81494L 2.67462,14.0583L 0.849468,14.0583L 0.849468,5.81494 Z "/>
+                                                        <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 8.6518,5.76343L 10.477,5.76343L 10.477,14.0068L 8.6518,14.0068L 8.6518,5.76343 Z "/>
+                                                        <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 12.1793,0.864685L 14.0044,0.864685L 14.0044,9.10809L 12.1793,9.10809L 12.1793,0.864685 Z "/>
+                                                    </DrawingGroup.Children>
+                                                </DrawingGroup>
+                                            </DrawingBrush.Drawing>
+                                        </DrawingBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="false">
+                                <Setter Property="Fill" TargetName="rectangle">
+                                    <Setter.Value>
+                                        <DrawingBrush Stretch="Uniform">
+                                            <DrawingBrush.Drawing>
+                                                <DrawingGroup>
+                                                    <DrawingGroup.Children>
+                                                        <GeometryDrawing Geometry="M 14.5772,0.866699L 14.5772,3.18408L 0.87183,3.18408L 0.87183,0.866699L 14.5772,0.866699 Z M 14.5989,7.87744L 14.5989,10.1949L 0.878563,10.2283L 0.878563,7.91089L 14.5989,7.87744 Z M 12.5429,4.90283L 14.5975,4.90283L 14.5975,6.19763L 12.5429,6.19763L 12.5429,4.90283 Z M 0.866669,4.86127L 2.92131,4.86127L 2.93114,6.21509L 0.876495,6.21509L 0.866669,4.86127 Z ">
+                                                            <GeometryDrawing.Pen>
+                                                                <Pen Thickness="1.73334" MiterLimit="2.75" Brush="#34000000"/>
+                                                            </GeometryDrawing.Pen>
+                                                        </GeometryDrawing>
+                                                        <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 14.3493,0.866699L 14.3493,3.18408L 0.87183,3.18408L 0.87183,0.866699L 14.3493,0.866699 Z "/>
+                                                        <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 14.4094,7.8775L 14.4094,10.1949L 0.931957,10.1949L 0.931957,7.8775L 14.4094,7.8775 Z "/>
+                                                        <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 12.5429,0.866882L 14.5975,0.866882L 14.5975,10.1937L 12.5429,10.1937L 12.5429,0.866882 Z "/>
+                                                        <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 0.866669,0.914917L 2.92132,0.914917L 2.92132,10.1949L 0.866669,10.1949L 0.866669,0.914917 Z "/>
+                                                    </DrawingGroup.Children>
+                                                </DrawingGroup>
+                                            </DrawingBrush.Drawing>
+                                        </DrawingBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--<Style x:Key="NormalMaxButton" TargetType="ToggleButton">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template" Value="{StaticResource ToggleButtonTemplate}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="{StaticResource MouseOverBrush1}"/>
+                    <Setter Property="Padding" Value="0,0,0,2"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="false">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" Value="{StaticResource PressedBrush1}"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="true">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <Rectangle Width="14" Height="12">
+                                <Rectangle.Fill>
+                                    <DrawingBrush Stretch="Uniform">
+                                        <DrawingBrush.Drawing>
+                                            <DrawingGroup>
+                                                <DrawingGroup.Children>
+                                                    <GeometryDrawing Geometry="M 13.9297,0.866638L 13.9297,2.92517L 4.37273,2.92517L 4.37273,0.866638L 13.9297,0.866638 Z M 13.9723,7.09436L 13.9723,9.15289L 4.37361,9.15509L 4.37361,7.09656L 13.9723,7.09436 Z M 4.37486,4.65076L 6.20001,4.65076L 6.2021,4.87726L 4.37694,4.87726L 4.37486,4.65076 Z M 10.4022,5.76544L 10.4022,7.82397L 0.880798,7.82397L 0.880798,5.76544L 10.4022,5.76544 Z M 10.4449,11.9931L 10.4449,14.0517L 0.887886,14.0517L 0.887886,11.9931L 10.4449,11.9931 Z M 0.866669,9.54382L 2.6746,9.54382L 2.67461,10.2731L 0.866676,10.2731L 0.866669,9.54382 Z M 8.65179,10.0754L 10.4769,10.0754L 10.4769,10.2727L 8.65179,10.2727L 8.65179,10.0754 Z M 12.1546,4.64813L 13.9778,4.64819L 13.9808,5.41901L 12.1444,5.41901L 12.1546,4.64813 Z ">
+                                                        <GeometryDrawing.Pen>
+                                                            <Pen Thickness="1.73334" MiterLimit="2.75" Brush="#34000000"/>
+                                                        </GeometryDrawing.Pen>
+                                                    </GeometryDrawing>
+                                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 13.9297,0.873291L 13.9297,2.93182L 4.37273,2.93182L 4.37273,0.873291L 13.9297,0.873291 Z "/>
+                                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 13.9723,7.10101L 13.9723,9.15955L 4.41537,9.15955L 4.41537,7.10101L 13.9723,7.10101 Z "/>
+                                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 4.37695,0.916138L 6.2021,0.916138L 6.2021,9.15955L 4.37695,9.15955L 4.37695,0.916138 Z "/>
+                                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="M 10.4022,5.77209L 10.4022,7.83063L 0.880806,7.83063L 0.880806,5.77209L 10.4022,5.77209 Z "/>
+                                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 10.4449,11.9998L 10.4449,14.0583L 0.88789,14.0583L 0.88789,11.9998L 10.4449,11.9998 Z "/>
+                                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 0.849468,5.81494L 2.67462,5.81494L 2.67462,14.0583L 0.849468,14.0583L 0.849468,5.81494 Z "/>
+                                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 8.6518,5.76343L 10.477,5.76343L 10.477,14.0068L 8.6518,14.0068L 8.6518,5.76343 Z "/>
+                                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 12.1793,0.864685L 14.0044,0.864685L 14.0044,9.10809L 12.1793,9.10809L 12.1793,0.864685 Z "/>
+                                                </DrawingGroup.Children>
+                                            </DrawingGroup>
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="false">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <Rectangle Width="14" Height="12">
+                                <Rectangle.Fill>
+                                    <DrawingBrush Stretch="Uniform">
+                                        <DrawingBrush.Drawing>
+                                            <DrawingGroup>
+                                                <DrawingGroup.Children>
+                                                    <GeometryDrawing Geometry="M 14.5772,0.866699L 14.5772,3.18408L 0.87183,3.18408L 0.87183,0.866699L 14.5772,0.866699 Z M 14.5989,7.87744L 14.5989,10.1949L 0.878563,10.2283L 0.878563,7.91089L 14.5989,7.87744 Z M 12.5429,4.90283L 14.5975,4.90283L 14.5975,6.19763L 12.5429,6.19763L 12.5429,4.90283 Z M 0.866669,4.86127L 2.92131,4.86127L 2.93114,6.21509L 0.876495,6.21509L 0.866669,4.86127 Z ">
+                                                        <GeometryDrawing.Pen>
+                                                            <Pen Thickness="1.73334" MiterLimit="2.75" Brush="#34000000"/>
+                                                        </GeometryDrawing.Pen>
+                                                    </GeometryDrawing>
+                                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 14.3493,0.866699L 14.3493,3.18408L 0.87183,3.18408L 0.87183,0.866699L 14.3493,0.866699 Z "/>
+                                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 14.4094,7.8775L 14.4094,10.1949L 0.931957,10.1949L 0.931957,7.8775L 14.4094,7.8775 Z "/>
+                                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 12.5429,0.866882L 14.5975,0.866882L 14.5975,10.1937L 12.5429,10.1937L 12.5429,0.866882 Z "/>
+                                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 0.866669,0.914917L 2.92132,0.914917L 2.92132,10.1949L 0.866669,10.1949L 0.866669,0.914917 Z "/>
+                                                </DrawingGroup.Children>
+                                            </DrawingGroup>
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>-->
+        <Style x:Key="CloseButton" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template" Value="{StaticResource CloseButtonTemplate}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="{StaticResource MouseOverBrush2}"/>
+                    <Setter Property="Padding" Value="0,0,0,2"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="false">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" Value="{StaticResource PressedBrush2}"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="LineSeparatorStyle" TargetType="Line">
+            <Setter Property="Stroke" Value="{StaticResource SeparatorBrush}"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="1"/>
+            <Setter Property="X1" Value="0"/>
+            <Setter Property="Y1" Value="0"/>
+            <Setter Property="X2" Value="0"/>
+            <Setter Property="Y2" Value="25"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+        </Style>
+
+        <Style x:Key="LineRectangleStyle" TargetType="Rectangle">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="1"/>
+            <Setter Property="Fill" Value="{StaticResource SeparatorBrush}"/>
+        </Style>
+
+
+    </UserControl.Resources>
+    <StackPanel Orientation="Horizontal">
+        <ItemsControl x:Name="ictlButtonHost">
+            <ItemsControl.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource MinimizeButton}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <StackPanel Orientation="Horizontal" Margin="0" MinWidth="26" Width="Auto">
+                                    <Border x:Name="Border" Height="25" Width="25"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}" >
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            Margin="{TemplateBinding Padding}" />
+                                    </Border>
+                                    <!--<Line Style="{StaticResource LineSeparatorStyle}"/>-->
+                                    <Rectangle Style="{StaticResource LineRectangleStyle}"/>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ItemsControl.Resources>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <Button x:Name="btnMinimize" x:FieldModifier="private" Style="{StaticResource MinimizeButton}"
+                Height="25" Width="25" ToolTip="最小化" >
+            <Rectangle Width="16" Height="4">
+                <Rectangle.Fill>
+                    <DrawingBrush Stretch="Uniform">
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                <DrawingGroup.Children>
+                                    <GeometryDrawing Geometry="F1 M 14.1167,0.866638L 14.1167,3.6778L 0.866669,3.6778L 0.866669,0.866638L 14.1167,0.866638 Z ">
+                                        <GeometryDrawing.Pen>
+                                            <Pen Thickness="1.73334" MiterLimit="2.75" Brush="#34000000"/>
+                                        </GeometryDrawing.Pen>
+                                    </GeometryDrawing>
+                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 14.1167,0.866638L 14.1167,3.6778L 0.866666,3.6778L 0.866666,0.866638L 14.1167,0.866638 Z "/>
+                                </DrawingGroup.Children>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Button>
+        <!--<Line Style="{StaticResource LineSeparatorStyle}" Visibility="{Binding ElementName=tbtnNormalMax,Path=Visibility}"/>-->
+        <Rectangle Style="{StaticResource LineRectangleStyle}" Visibility="{Binding ElementName=btnMinimize,Path=Visibility}"/>
+        <ToggleButton x:Name="tbtnNormalMax" x:FieldModifier="private" Style="{StaticResource NormalMaxButton}"
+                      Height="25" Width="25" ToolTip="最大化" />
+        <!--<Line Style="{StaticResource LineSeparatorStyle}" Visibility="{Binding ElementName=btnClose,Path=Visibility}"/>-->
+        <Rectangle Style="{StaticResource LineRectangleStyle}" Visibility="{Binding ElementName=tbtnNormalMax,Path=Visibility}"/>
+        <Button x:Name="btnClose" x:FieldModifier="private" Style="{StaticResource CloseButton}"
+                Height="25" Width="25" ToolTip="关闭">
+            <Rectangle Width="16" Height="12">
+                <Rectangle.Fill>
+                    <DrawingBrush Stretch="Uniform">
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                <DrawingGroup.Children>
+                                    <GeometryDrawing Geometry="M 14.5558,11.2509L 12.2499,13.3423L 0.975525,3.11658L 3.28142,1.02515L 14.5558,11.2509 Z M 12.1804,0.866638L 14.4863,2.95807L 3.17256,13.2194L 0.866669,11.1281L 12.1804,0.866638 Z ">
+                                        <GeometryDrawing.Pen>
+                                            <Pen Thickness="1.73334" MiterLimit="2.75" Brush="#34000000"/>
+                                        </GeometryDrawing.Pen>
+                                    </GeometryDrawing>
+                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 14.5558,11.2509L 12.2499,13.3423L 0.975525,3.11658L 3.28142,1.02515L 14.5558,11.2509 Z "/>
+                                    <GeometryDrawing Brush="#FFFEFEFE" Geometry="F1 M 12.1804,0.866638L 14.4863,2.95807L 3.17255,13.2195L 0.866657,11.1281L 12.1804,0.866638 Z "/>
+                                </DrawingGroup.Children>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Button>
+    </StackPanel>
+</UserControl>

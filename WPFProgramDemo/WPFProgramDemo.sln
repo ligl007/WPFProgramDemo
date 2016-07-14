@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IProject", "Interface\IProj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathStoryboard", "Plugs\PathStoryboard\PathStoryboard.csproj", "{06712A00-AE43-4231-B0DE-4685A820336B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TipPlugs", "Plugs\TextBoxTip\TipPlugs.csproj", "{439736F9-54DB-4BD2-AE37-005BB76B4300}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,18 @@ Global
 		{06712A00-AE43-4231-B0DE-4685A820336B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{06712A00-AE43-4231-B0DE-4685A820336B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{06712A00-AE43-4231-B0DE-4685A820336B}.Release|x86.ActiveCfg = Release|Any CPU
+		{439736F9-54DB-4BD2-AE37-005BB76B4300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{439736F9-54DB-4BD2-AE37-005BB76B4300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{439736F9-54DB-4BD2-AE37-005BB76B4300}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{439736F9-54DB-4BD2-AE37-005BB76B4300}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{439736F9-54DB-4BD2-AE37-005BB76B4300}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{439736F9-54DB-4BD2-AE37-005BB76B4300}.Debug|x86.Build.0 = Debug|Any CPU
+		{439736F9-54DB-4BD2-AE37-005BB76B4300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{439736F9-54DB-4BD2-AE37-005BB76B4300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{439736F9-54DB-4BD2-AE37-005BB76B4300}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{439736F9-54DB-4BD2-AE37-005BB76B4300}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{439736F9-54DB-4BD2-AE37-005BB76B4300}.Release|x86.ActiveCfg = Release|Any CPU
+		{439736F9-54DB-4BD2-AE37-005BB76B4300}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,5 +99,6 @@ Global
 		{D1371093-2D45-4754-96BD-D49268900FA4} = {6302B895-787E-45E2-BCDD-FE1EB1F8E896}
 		{1505E349-22D8-491B-BE90-A72F1F1798CD} = {B472D549-4084-4CC1-89AD-E02F71C2BDF0}
 		{06712A00-AE43-4231-B0DE-4685A820336B} = {6302B895-787E-45E2-BCDD-FE1EB1F8E896}
+		{439736F9-54DB-4BD2-AE37-005BB76B4300} = {6302B895-787E-45E2-BCDD-FE1EB1F8E896}
 	EndGlobalSection
 EndGlobal
