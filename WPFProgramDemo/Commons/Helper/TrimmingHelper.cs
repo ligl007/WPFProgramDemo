@@ -23,95 +23,18 @@ namespace Commons.Helper
     public class TrimmingHelper
     {
 
-        public static string Trim(string source, string suffix, double width, Typeface face, double fontsize)
-        {
-            return Trim(source, suffix, null, width, face, fontsize);
-        }
 
-        public static string Trim(string source, string suffix, string endNoTrimSource, double width, Typeface face, double fontsize)
-        {
-
-            if (face != null)
-            {
-                //real display max width.
-                double realWidth = width;
-
-                //try to get GlyphTypeface.
-                GlyphTypeface glyphTypeface;
-                face.TryGetGlyphTypeface(out glyphTypeface);
-
-                if (glyphTypeface != null)
-                {
-                    //calculate end string 's display width.
-                    if (!string.IsNullOrEmpty(endNoTrimSource))
-                    {
-                        double notrimWidth = 0;
-                        foreach (char c in endNoTrimSource)
-                        {
-                            ushort w;
-                            glyphTypeface.CharacterToGlyphMap.TryGetValue(c, out w);
-                            notrimWidth += glyphTypeface.AdvanceWidths[w] * fontsize;
-                        }
-
-                        realWidth = width - notrimWidth;
-                    }
-
-                    //calculate source 's screen width
-                    double sourceWidth = 0;
-                    if (!string.IsNullOrEmpty(source))
-                    {
-                        foreach (char c in source)
-                        {
-                            ushort w;
-                            glyphTypeface.CharacterToGlyphMap.TryGetValue(c, out w);
-                            sourceWidth += glyphTypeface.AdvanceWidths[w] * fontsize;
-                        }
-                    }
-
-                    //don't need to trim.
-                    if (sourceWidth <= realWidth) return source + endNoTrimSource;
-
-                    //calculate suffix's display width
-                    double suffixWidth = 0;
-                    if (!string.IsNullOrEmpty(suffix))
-                    {
-                        foreach (char c in suffix)
-                        {
-                            ushort w;
-                            glyphTypeface.CharacterToGlyphMap.TryGetValue(c, out w);
-                            suffixWidth += glyphTypeface.AdvanceWidths[w] * fontsize;
-                        }
-                    }
-
-                    realWidth = realWidth - suffixWidth;
-
-                    if (realWidth > 0)
-                    {
-                        sourceWidth = 0;
-                        string trimStr = string.Empty;
-                        foreach (char c in source)
-                        {
-                            ushort w;
-                            glyphTypeface.CharacterToGlyphMap.TryGetValue(c, out w);
-
-                            double cWidth = glyphTypeface.AdvanceWidths[w] * fontsize;
-
-                            if ((sourceWidth + cWidth) > realWidth) return trimStr + suffix + endNoTrimSource;
-                            trimStr += c;
-                            sourceWidth += cWidth;
-                        }
-                    }
-                    else
-                    {
-                        if (width > suffixWidth) return suffix;
-                        else return "...";
-                    }
-                }
-            }
-
-            return source + endNoTrimSource;
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source">原始文本</param>
+        /// <param name="suffix">省略文本符号</param>
+        /// <param name="endNoTrimSource">追加省略号后面的文本,source+endNoTrimSource总体长度计算省略号</param>
+        /// <param name="width">文本长度</param>
+        /// <param name="face">字体类</param>
+        /// <param name="fontsize">字体大小</param>
+        /// <param name="ShowTip">True标示截取了文本</param>
+        /// <returns></returns>
         public static string Trim(string source, string suffix, string endNoTrimSource, double width, Typeface face, double fontsize, ref bool ShowTip)
         {
 
@@ -200,76 +123,6 @@ namespace Commons.Helper
             }
             ShowTip = false;
             return source + endNoTrimSource;
-        }
-
-        public static bool IsTrim(string source, string suffix, double width, Typeface face, double fontsize)
-        {
-            if (face != null)
-            {
-                //real display max width.
-                double realWidth = width;
-
-                //try to get GlyphTypeface.
-                GlyphTypeface glyphTypeface;
-                face.TryGetGlyphTypeface(out glyphTypeface);
-
-                if (glyphTypeface != null)
-                {
-                    //calculate source 's screen width
-                    double sourceWidth = 0;
-                    if (!string.IsNullOrEmpty(source))
-                    {
-                        foreach (char c in source)
-                        {
-                            ushort w;
-                            glyphTypeface.CharacterToGlyphMap.TryGetValue(c, out w);
-                            sourceWidth += glyphTypeface.AdvanceWidths[w] * fontsize;
-                        }
-                    }
-
-                    //don't need to trim.
-                    if (sourceWidth <= realWidth) return false;
-
-                    //calculate suffix's display width
-                    double suffixWidth = 0;
-                    if (!string.IsNullOrEmpty(suffix))
-                    {
-                        foreach (char c in suffix)
-                        {
-                            ushort w;
-                            glyphTypeface.CharacterToGlyphMap.TryGetValue(c, out w);
-                            suffixWidth += glyphTypeface.AdvanceWidths[w] * fontsize;
-                        }
-                    }
-
-                    realWidth = realWidth - suffixWidth;
-
-                    if (realWidth > 0)
-                    {
-                        sourceWidth = 0;
-                        string trimStr = string.Empty;
-                        foreach (char c in source)
-                        {
-                            ushort w;
-                            glyphTypeface.CharacterToGlyphMap.TryGetValue(c, out w);
-
-                            double cWidth = glyphTypeface.AdvanceWidths[w] * fontsize;
-
-                            if ((sourceWidth + cWidth) > realWidth) return true;
-                            trimStr += c;
-                            sourceWidth += cWidth;
-                        }
-                    }
-                    else
-                    {
-                        //if (width > suffixWidth) return true;
-                        //else return "...";
-                        return true;
-                    }
-                }
-            }
-
-            return false;
         }
     }
 }
