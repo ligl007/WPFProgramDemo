@@ -6,6 +6,54 @@
         <GradientStop Color="#FF1F7AB9"/>
         <GradientStop Color="#FF7DC7FB" Offset="1"/>
     </LinearGradientBrush>
+    <ControlTemplate x:Key="AppButtonTemplate" TargetType="Button">
+        <Border x:Name="Border" BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}" >
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Margin="{TemplateBinding Padding}" Width="17" Height="17" />
+        </Border>
+    </ControlTemplate>
+    <Style x:Key="AppButtonStyle" TargetType="Button">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="Margin" Value="0,0,2,0"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Template" Value="{StaticResource AppButtonTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="BorderThickness" Value="1"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="false">
+                <Setter Property="Background" Value="Transparent"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Padding" Value="3,3,1,1"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="AppToolStyle" TargetType="Border">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="Margin" Value="0,0,2,0"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Height" Value="20"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="BorderThickness" Value="1"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="false">
+                <Setter Property="Background" Value="Transparent"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- MainWindowTemplate -->
     <ControlTemplate x:Key="MainWindowTemplate" TargetType="Window">
         <Grid>
@@ -63,13 +111,238 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <!-- MainWindowStyle -->
     <Style x:Key="MainWindowStyle" TargetType="Window">
         <Setter Property="Template" Value="{StaticResource MainWindowTemplate}"/>
         <Setter Property="AllowsTransparency" Value="True"/>
         <Setter Property="WindowStyle" Value="None"/>
-        <Setter Property="ShowInTaskbar" Value="True"/>
+        <Setter Property="ShowInTaskbar" Value="False"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="{DynamicResource WindowBackground}"/>
+    </Style>
+
+    <!-- LoginWindowStyle -->
+    <Style x:Key="LoginWindowStyle" TargetType="Window" BasedOn="{StaticResource MainWindowStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Window">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="34"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <common:MoveBorder Grid.RowSpan="2" CornerRadius="3" Background="{TemplateBinding Background}"/>
+                        <DockPanel HorizontalAlignment="Stretch">
+                            <Image Source="{TemplateBinding Icon}" MaxHeight="24" MaxWidth="24" Margin="5,5,0,5"
+                           IsHitTestVisible="False"/>
+                            <TextBlock Text="{TemplateBinding Title}" Margin="5" FontSize="12"
+                                   VerticalAlignment="Top" IsHitTestVisible="False">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="8" Color="White" Direction="0" ShadowDepth="0"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                            <common:WindowButtons x:Name="WinButtons"
+                                         PlugButtons="{Binding RelativeSource={RelativeSource TemplatedParent},Path=PlugButtons}"
+                                         State="{Binding RelativeSource={RelativeSource TemplatedParent},Path=WindowState,Mode=TwoWay}"
+                                         HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                        </DockPanel>
+                        <AdornerDecorator Grid.Row="1">
+                            <ContentPresenter />
+                        </AdornerDecorator>
+                        <Border Grid.RowSpan="2" CornerRadius="3" BorderBrush="#AFFFFFFF" BorderThickness="2"/>
+                        <common:WindowBorder Grid.RowSpan="2" x:Name="WinBorder" CornerRadius="3"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Effect="{TemplateBinding Effect}"
+                                    BitmapEffect="{TemplateBinding BitmapEffect}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ResizeMode" Value="CanMinimize">
+                            <Setter TargetName="WinButtons" Property="IsNormalMaxEnable" Value="false"/>
+                            <Setter TargetName="WinBorder" Property="IsResizable" Value="false"/>
+                        </Trigger>
+                        <Trigger Property="ResizeMode" Value="NoResize">
+                            <Setter TargetName="WinButtons" Property="IsMinimizeEnable" Value="false"/>
+                            <Setter TargetName="WinButtons" Property="IsNormalMaxEnable" Value="false"/>
+                            <Setter TargetName="WinBorder" Property="IsResizable" Value="false"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CommonButtonStyle" TargetType="Button">
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="Storyboard1">
+                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                      (GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Border">
+                                <LinearColorKeyFrame KeyTime="0:0:0.5" Value="#DAEFF9" />
+                            </ColorAnimationUsingKeyFrames>
+                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                      (GradientBrush.GradientStops)[1].(GradientStop.Color)"
+                                                Storyboard.TargetName="Border">
+                                <LinearColorKeyFrame KeyTime="0:0:0.5" Value="#AAD6E9" />
+                            </ColorAnimationUsingKeyFrames>
+                            <ColorAnimationUsingKeyFrames
+                                                Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                Storyboard.TargetName="Border">
+                                <LinearColorKeyFrame KeyTime="0:0:0.5" Value="#FFE9EDEE"/>
+                            </ColorAnimationUsingKeyFrames>
+                        </Storyboard>
+                        <Storyboard x:Key="Storyboard2" >
+                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                      (GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Border">
+                                <LinearColorKeyFrame KeyTime="0:0:0.5" Value="#D1D8DC" />
+                            </ColorAnimationUsingKeyFrames>
+                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                      (GradientBrush.GradientStops)[1].(GradientStop.Color)"
+                                                Storyboard.TargetName="Border">
+                                <LinearColorKeyFrame KeyTime="0:0:0.5" Value="#E9EDEE" />
+                            </ColorAnimationUsingKeyFrames>
+                            <ColorAnimationUsingKeyFrames 
+                                                Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                Storyboard.TargetName="Border">
+                                <LinearColorKeyFrame KeyTime="0:0:0.5" Value="#929569" />
+                            </ColorAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+                    <Border x:Name="Border" CornerRadius="3"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Offset="0" Color="#DBEFF8"/>
+                                <GradientStop Offset="1" Color="#DBEFF0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="#458BB6"/>
+                        </Border.BorderBrush>
+                        <!--<VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualStateGroup.Transitions>
+                                            <VisualTransition GeneratedDuration="0:0:0.5" />
+                                            <VisualTransition GeneratedDuration="0" To="Pressed" />
+                                        </VisualStateGroup.Transitions>
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                      (GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Border">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#DAEFF9" />
+                                                </ColorAnimationUsingKeyFrames>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                      (GradientBrush.GradientStops)[1].(GradientStop.Color)"
+                                                Storyboard.TargetName="Border">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#AAD6E9" />
+                                                </ColorAnimationUsingKeyFrames>
+                                                <ColorAnimationUsingKeyFrames
+                                                Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                Storyboard.TargetName="Border">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#E9EDEE" />
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                      (GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Border">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#D1D8DC" />
+                                                </ColorAnimationUsingKeyFrames>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                      (GradientBrush.GradientStops)[1].(GradientStop.Color)"
+                                                Storyboard.TargetName="Border">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#E9EDEE" />
+                                                </ColorAnimationUsingKeyFrames>
+                                                <ColorAnimationUsingKeyFrames 
+                                                Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                Storyboard.TargetName="Border">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#929569" />
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                      (GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Border">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#D1D8DC" />
+                                                </ColorAnimationUsingKeyFrames>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).
+                      (GradientBrush.GradientStops)[1].(GradientStop.Color)"
+                                                Storyboard.TargetName="Border">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#E9EDEE" />
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>-->
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Margin="{TemplateBinding Padding}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Trigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="Storyboard1_BeginStoryboard"/>
+                            </Trigger.ExitActions>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="Storyboard1_BeginStoryboard" Storyboard="{StaticResource Storyboard1}"/>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Trigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="Storyboard2_BeginStoryboard"/>
+                            </Trigger.ExitActions>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="Storyboard2_BeginStoryboard" Storyboard="{StaticResource Storyboard2}"/>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PhotoButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="LightGray"/>
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Rectangle x:Name="OuterglowRect" Visibility="Collapsed"
+                                       RadiusX="3" RadiusY="3" Fill="#00BFFF"/>
+                        <Border SnapsToDevicePixels="True" CornerRadius="2" Margin="2"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter SnapsToDevicePixels="True"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter TargetName="OuterglowRect" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

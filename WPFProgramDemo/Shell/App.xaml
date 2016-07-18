@@ -6,6 +6,17 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/MainThemes.xaml"/>
+                <ResourceDictionary Source="Themes/BrushStyle.xaml"/>
+                <ResourceDictionary Source="Themes/BorderStyle.xaml"/>
+                <ResourceDictionary Source="Themes/ScrollViewerStyle.xaml"/>
+                <ResourceDictionary Source="Themes/ButtonStyle.xaml"/>
+                <ResourceDictionary Source="Themes/WindowStyle.xaml"/>
+                <ResourceDictionary Source="Themes/TreeViewStyle.xaml"/>
+                <ResourceDictionary Source="Themes/DocumentsStyle.xaml"/>
+                <ResourceDictionary Source="Themes/MenuStyle.xaml"/>
+                <ResourceDictionary Source="Themes/TabControlStyle.xaml"/>
+                <ResourceDictionary Source="Themes/TextBoxStyle.xaml"/>
+                <ResourceDictionary Source="Themes/ComboBoxStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

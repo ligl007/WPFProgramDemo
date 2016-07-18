@@ -2,7 +2,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:TipPlugs">
-
     <Style x:Key="XCloseButton" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Height" Value="10"/>
@@ -236,4 +235,105 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+
+    <!--validation Template-->
+    <ControlTemplate x:Key="validationTemplateBorder">
+        <Grid>
+            <Border x:Name="validationBorder" CornerRadius="2" BorderThickness="1.3"   BorderBrush="Red">
+                <Border.Resources>
+                    <Storyboard x:Key="_blink">
+                        <ColorAnimationUsingKeyFrames AutoReverse="True" BeginTime="00:00:00" Storyboard.TargetName="validationBorder" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" RepeatBehavior="00:00:05">
+                            <SplineColorKeyFrame KeyTime="00:00:00.5" Value="#00FF0000"/>
+                        </ColorAnimationUsingKeyFrames>
+                    </Storyboard>
+                </Border.Resources>
+                <Border.Triggers>
+                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                        <BeginStoryboard Storyboard="{StaticResource _blink}" />
+                    </EventTrigger>
+                </Border.Triggers>
+            </Border>
+            <AdornedElementPlaceholder/>
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type local:TextBoxValidation}">
+        <Setter Property="Height" Value="26"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorder}"/>
+        <Setter Property="Background" Value="{DynamicResource TextBoxBackground}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource validationTemplateBorder}"/>
+        <Setter Property="ErrorText" Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                 Path=(Validation.Errors)[0].ErrorContent}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:TextBoxValidation}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle x:Name="OuterglowRect" Visibility="Collapsed"
+                                       RadiusX="2" RadiusY="2" Stroke="{DynamicResource OuterBlueBrush}"  StrokeThickness="1.5" />
+                        <Border x:Name="Bd" SnapsToDevicePixels="True" 
+							    CornerRadius="2"  Margin="1"
+                                Background="White"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                        </Border>
+                        <TextBox x:Name="PART_Text" Grid.Column="0" 
+                                     Style="{x:Null}"
+                                     Padding="2,2"
+                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                     BorderThickness="0"
+                                     IsReadOnly="{Binding IsReadOnly,Mode=TwoWay,
+                                     UpdateSourceTrigger=PropertyChanged,RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                     Text="{Binding Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                RelativeSource={RelativeSource TemplatedParent}}">
+                            <TextBox.Background>
+                                <VisualBrush Stretch="None" AlignmentX="Left">
+                                    <VisualBrush.Transform>
+                                        <TranslateTransform X="5" Y="0"/>
+                                    </VisualBrush.Transform>
+                                    <VisualBrush.Visual>
+                                        <TextBlock x:Name="PART_EmptyText" Grid.Column="0" Text="{TemplateBinding TootipText}" 
+                                            FontSize="12" Visibility="Collapsed" Foreground="LightGray"  Focusable="False"/>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </TextBox.Background>
+                        </TextBox>
+                        <Rectangle x:Name="glowRect" Margin="2 2 2 0" 
+                                   RadiusX="2" RadiusY="2" Stroke="{x:Null}" Fill="{DynamicResource TextBoxTopBrush}"
+                                   SnapsToDevicePixels="true" StrokeThickness="0"  Height="3" VerticalAlignment="Top" >
+
+                        </Rectangle>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Text" Value="">
+                            <Setter TargetName="PART_EmptyText" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="Text" Value="{x:Null}">
+                            <Setter TargetName="PART_EmptyText" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter TargetName="OuterglowRect" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsReadOnly" Value="True">
+                            <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource TextBoxBorderRead}"/>
+                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource TextBoxBgRead}"/>
+                            <Setter Property="Visibility" TargetName="glowRect" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="Validation.HasError" Value="true">
+                            <Setter TargetName="OuterglowRect" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
 </ResourceDictionary>

@@ -34,7 +34,21 @@
                            HorizontalAlignment="Left"
                            TooTipText="编辑个性签名"  Height="22"  Width="200"      
                              Margin="0,2"/>
+            <local:TextBoxValidation Margin="7,0,0,0" 
+                                                 x:Name="txtGroupName"
+                                                 IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                                                 TootipText="这是一个带验证的提示框啊！"
+                                                 ErrorText="请输入内容"
+                                                 VerticalContentAlignment="Center" >
+                <local:TextBoxValidation.Text>
+                    <Binding Path="Name"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:ValueIsNotNull/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </local:TextBoxValidation.Text>
+            </local:TextBoxValidation>
         </StackPanel>
-     
+
     </Grid>
 </UserControl>

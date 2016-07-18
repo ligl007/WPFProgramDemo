@@ -74,6 +74,9 @@
     <Compile Include="UserControlTip.xaml.cs">
       <DependentUpon>UserControlTip.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Validation\TextBoxValidation.cs" />
+    <Compile Include="Validation\ValidationRule.cs" />
+    <Compile Include="Validation\ValidationRuleBase.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
