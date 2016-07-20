@@ -1,0 +1,7 @@
+bin/
+*.suo
+obj/
+debug/
+.gitignore 
+*.dll
+*.pdb
