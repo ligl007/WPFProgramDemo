@@ -156,7 +156,7 @@ namespace CoordinateXY
                 Canvas.SetBottom(xLine, -xyLine);//延迟8长度刻度
                 TextBlock txtBlock = new TextBlock();
                 txtBlock.Text = (i).ToString();//文本内容
-                Canvas.SetLeft(txtBlock, i * scaleNumX - 8);//两位数的文本平移8 让文本居中显示
+                Canvas.SetLeft(txtBlock, i * scaleNumX);//两位数的文本平移8 让文本居中显示
                 Canvas.SetBottom(txtBlock, -txtDis);//刻度下方文本
                 canvasXRuler.Children.Add(xLine);
                 canvasXRuler.Children.Add(txtBlock);
@@ -189,7 +189,7 @@ namespace CoordinateXY
                 Canvas.SetBottom(yLine, i * scaleNumY);
                 TextBlock txtBlock = new TextBlock();
                 txtBlock.Text = (i).ToString();//文本内容
-                Canvas.SetLeft(txtBlock, -txtDis - 2);
+                Canvas.SetRight(txtBlock, this.Width +8);
                 Canvas.SetBottom(txtBlock, i * scaleNumY - 8);//两位数的文本平移8 让文本居中显示
                 canvasXRuler.Children.Add(yLine);
                 canvasXRuler.Children.Add(txtBlock);
@@ -266,7 +266,7 @@ namespace CoordinateXY
             {
                 return;
             }
-         
+
             Point startPoint = ConvertPoint(data.Item1);
             Point endPoint = ConvertPoint(data.Item2);
             CreateLine(startPoint, endPoint);

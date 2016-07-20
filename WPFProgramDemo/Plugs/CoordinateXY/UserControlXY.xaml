@@ -26,7 +26,7 @@
         </Canvas>
 
         <!--X坐标尺度-->
-        <Canvas x:Name="canvasXRuler"  Visibility="Visible" Panel.ZIndex="-1">
+        <Canvas x:Name="canvasXRuler"  Visibility="Visible" Panel.ZIndex="-1" Canvas.Left="0">
             <!--以下为测试代码-->   
             <Line X1="0" X2="0" Y1="0" Y2="260" Stroke="Blue" StrokeThickness="1" Canvas.Bottom="-8"   Canvas.Left="40"></Line>
             <TextBlock Text="12" RenderTransformOrigin="0,0" Canvas.Bottom="-25"   Canvas.Left="32">
