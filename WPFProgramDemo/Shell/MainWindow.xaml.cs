@@ -17,6 +17,7 @@ using IProject;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition;
 using Commons.Helper;
+using System.Collections;
 
 namespace Shell
 {
@@ -25,21 +26,26 @@ namespace Shell
     /// </summary>
     public partial class MainWindow : Window
     {
+        ResourcesStyle.SkinHelper skinHelper = new ResourcesStyle.SkinHelper();
         public MainWindow()
         {
             InitializeComponent();
             WindowHelper.CorrectMaximization(this);
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
+            PlugButtons = skinHelper.CreateSkinButton();
         }
+        public IEnumerable PlugButtons { get; set; }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             Compose();
             InitMenus();
-
+          
         }
+
         [ImportMany]
         public IEnumerable<IPlugin> Plugins { get; set; }
+
         private void Compose()
         {
             string pathPlugs = AppDomain.CurrentDomain.BaseDirectory + "\\Plugs";

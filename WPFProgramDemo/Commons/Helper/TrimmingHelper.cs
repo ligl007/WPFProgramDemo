@@ -124,5 +124,39 @@ namespace Commons.Helper
             ShowTip = false;
             return source + endNoTrimSource;
         }
+
+        /// <summary>
+        /// 获取文本内容宽度的方法
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="face"></param>
+        /// <param name="fontsize"></param>
+        /// <returns></returns>
+        public static double GetControlWidth(string source, Typeface face, double fontsize)
+        {
+            double realWidth = 0;
+            if (face != null)
+            {
+                //try to get GlyphTypeface.
+                GlyphTypeface glyphTypeface;
+                face.TryGetGlyphTypeface(out glyphTypeface);
+
+                if (glyphTypeface != null)
+                {
+                    //calculate source 's screen width
+                    if (!string.IsNullOrEmpty(source))
+                    {
+                        foreach (char c in source)
+                        {
+                            ushort w;
+                            glyphTypeface.CharacterToGlyphMap.TryGetValue(c, out w);
+                            realWidth += glyphTypeface.AdvanceWidths[w] * fontsize;
+                        }
+                    }
+                }
+            }
+
+            return realWidth;
+        }
     }
 }

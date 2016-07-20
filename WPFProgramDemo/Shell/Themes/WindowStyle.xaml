@@ -216,7 +216,7 @@
         <Setter Property="ShowInTaskbar" Value="True"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Icon" Value="pack://application:,,,/Images/logo.ico"/>
+        <!--<Setter Property="Icon" Value="pack://application:,,,/Images/logo.ico"/>-->
         <Setter Property="Background" Value="{DynamicResource WindowBackground}"/>
     </Style>
 
@@ -234,7 +234,7 @@
         <Setter Property="ShowInTaskbar" Value="True"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Icon" Value="pack://application:,,,/Images/logo.ico"/>
+        <!--<Setter Property="Icon" Value="pack://application:,,,/Images/logo.ico"/>-->
         <Setter Property="Background" Value="{DynamicResource WindowBackground}"/>
     </Style>
 

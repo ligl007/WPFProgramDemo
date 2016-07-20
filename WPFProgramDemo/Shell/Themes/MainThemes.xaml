@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:common="clr-namespace:Commons;assembly=Commons"
-                    xmlns:local="clr-namespace:WPFProgramDemo.Themes">
+                    xmlns:common="clr-namespace:Commons;assembly=Commons">
     <LinearGradientBrush x:Key="WindowBackground" StartPoint="0.2,0" EndPoint="0.2,1">
         <GradientStop Color="#FF1F7AB9"/>
         <GradientStop Color="#FF7DC7FB" Offset="1"/>

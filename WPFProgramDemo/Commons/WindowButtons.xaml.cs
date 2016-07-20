@@ -90,7 +90,7 @@ namespace Commons
 
         public IEnumerable PlugButtons
         {
-            get { return (ICollection<object>)GetValue(PlugButtonsProperty); }
+            get { return (IEnumerable)GetValue(PlugButtonsProperty); }
             set { SetValue(PlugButtonsProperty, value); }
         }
 

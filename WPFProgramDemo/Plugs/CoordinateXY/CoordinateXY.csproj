@@ -60,6 +60,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Commons\Commons.csproj">
+      <Project>{fed55485-d9cd-47f5-a17b-4ad9f4a533de}</Project>
+      <Name>Commons</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Interface\IProject\IProject.csproj">
       <Project>{1505E349-22D8-491B-BE90-A72F1F1798CD}</Project>
       <Name>IProject</Name>

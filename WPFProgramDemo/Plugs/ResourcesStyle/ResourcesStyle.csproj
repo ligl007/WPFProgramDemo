@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{439736F9-54DB-4BD2-AE37-005BB76B4300}</ProjectGuid>
+    <ProjectGuid>{0763D295-5408-49AF-9C6C-BBBE0087FBC4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TipPlugs</RootNamespace>
-    <AssemblyName>TipPlugs</AssemblyName>
+    <RootNamespace>ResourcesStyle</RootNamespace>
+    <AssemblyName>ResourcesStyle</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -40,7 +40,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,15 +67,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="TextBoxSign.cs" />
-    <Compile Include="TextBoxTip.cs" />
-    <Compile Include="TipMenu.cs" />
-    <Compile Include="UserControlTip.xaml.cs">
-      <DependentUpon>UserControlTip.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Validation\TextBoxValidation.cs" />
-    <Compile Include="Validation\ValidationRule.cs" />
-    <Compile Include="Validation\ValidationRuleBase.cs" />
+    <Compile Include="Skin.cs" />
+    <Compile Include="SkinHelper.cs" />
+    <Compile Include="SkinManager.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -88,33 +81,41 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Commons\Commons.csproj">
-      <Project>{fed55485-d9cd-47f5-a17b-4ad9f4a533de}</Project>
-      <Name>Commons</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interface\IProject\IProject.csproj">
-      <Project>{1505e349-22d8-491b-be90-a72f1f1798cd}</Project>
-      <Name>IProject</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\WPFModels\WPFModels.csproj">
-      <Project>{d4819f3a-e0c8-4f7e-b5cd-156b5c399a46}</Project>
-      <Name>WPFModels</Name>
-    </ProjectReference>
+    <Resource Include="Images\skinButton.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Themes\Generic.xaml">
+    <Page Include="Skins\Blue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControlTip.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Skins\Green.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\LightGray.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Orange.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Pink.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Red.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\Violet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /r /y $(TargetDir)$(TargetName).dll  $(SolutionDir)\Shell\bin\debug\Plugs\
-xcopy /r /y $(TargetDir)$(TargetName).pdb  $(SolutionDir)\Shell\bin\debug\Plugs\</PostBuildEvent>
+    <PostBuildEvent>xcopy /r /y  $(SolutionDir)\Plugs\ResourcesStyle\Skins  $(SolutionDir)\Shell\bin\debug\Skins\</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

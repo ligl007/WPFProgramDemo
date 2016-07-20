@@ -156,7 +156,9 @@ namespace CoordinateXY
                 Canvas.SetBottom(xLine, -xyLine);//延迟8长度刻度
                 TextBlock txtBlock = new TextBlock();
                 txtBlock.Text = (i).ToString();//文本内容
-                Canvas.SetLeft(txtBlock, i * scaleNumX);//两位数的文本平移8 让文本居中显示
+                var typeface = new Typeface(txtBlock.FontFamily, txtBlock.FontStyle, txtBlock.FontWeight, txtBlock.FontStretch);
+                var width = Commons.Helper.TrimmingHelper.GetControlWidth(txtBlock.Text, typeface, txtBlock.FontSize);
+                Canvas.SetLeft(txtBlock, i * scaleNumX - width / 2);//计算文本宽度 使text内容center居中
                 Canvas.SetBottom(txtBlock, -txtDis);//刻度下方文本
                 canvasXRuler.Children.Add(xLine);
                 canvasXRuler.Children.Add(txtBlock);
@@ -189,8 +191,8 @@ namespace CoordinateXY
                 Canvas.SetBottom(yLine, i * scaleNumY);
                 TextBlock txtBlock = new TextBlock();
                 txtBlock.Text = (i).ToString();//文本内容
-                Canvas.SetRight(txtBlock, this.Width +8);
-                Canvas.SetBottom(txtBlock, i * scaleNumY - 8);//两位数的文本平移8 让文本居中显示
+                Canvas.SetRight(txtBlock, this.Width + 8);
+                Canvas.SetBottom(txtBlock, i * scaleNumY - 8);//高度平移8文本内容上下对齐线
                 canvasXRuler.Children.Add(yLine);
                 canvasXRuler.Children.Add(txtBlock);
             }
@@ -202,7 +204,7 @@ namespace CoordinateXY
         /// 创建点的位置
         /// </summary>
         /// <param name="point"></param>
-        static void InCanvasPoint(Point point)
+        void InCanvasPoint(Point point)
         {
             var temp = CreatePointEllipse();
             //temp.ToolTip = point.X / scaleNumX + "," + point.Y / scaleNumY;
@@ -216,7 +218,7 @@ namespace CoordinateXY
         /// <summary>
         /// 创建Point
         /// </summary>
-        static void CreatePoint(List<Point> itemList)
+        void CreatePoint(List<Point> itemList)
         {
             if (itemList != null && itemList.Count > 0)
             {
@@ -241,7 +243,7 @@ namespace CoordinateXY
         /// </summary>
         /// <param name="startPoint"></param>
         /// <param name="endPoint"></param>
-        static void CreateLine(Point startPoint, Point endPoint)
+        void CreateLine(Point startPoint, Point endPoint)
         {
             PathGeometry pg = new PathGeometry();//组合绘制的线段 
             Path pa = new Path();//绘制轨迹曲线的容器，用于显示 
@@ -260,7 +262,7 @@ namespace CoordinateXY
         /// <summary>
         /// 创建弧线
         /// </summary>
-        static void CreateArcLine(Tuple<Point, Point, double> data)
+        void CreateArcLine(Tuple<Point, Point, double> data)
         {
             if (data == null)
             {
@@ -302,7 +304,7 @@ namespace CoordinateXY
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        static Point ConvertPoint(Point point)
+        Point ConvertPoint(Point point)
         {
             var tmpPoint = new Point();
             tmpPoint.X = point.Y * scaleNumY;
@@ -314,7 +316,7 @@ namespace CoordinateXY
         /// 创建圆点
         /// </summary>
         /// <returns></returns>
-        static Ellipse CreatePointEllipse()
+        Ellipse CreatePointEllipse()
         {
             Ellipse ell = new Ellipse();
             ell.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
@@ -364,7 +366,7 @@ namespace CoordinateXY
             if (e.NewValue != null)
             {
                 uControlXY = d as UserControlXY;
-                CreatePoint(e.NewValue as List<Point>);
+                uControlXY.CreatePoint(e.NewValue as List<Point>);
             }
         }
 
@@ -379,7 +381,7 @@ namespace CoordinateXY
             if (e.NewValue != null)
             {
                 uControlXY = d as UserControlXY;
-                CreateArcLine(e.NewValue as Tuple<Point, Point, double>);
+                uControlXY.CreateArcLine(e.NewValue as Tuple<Point, Point, double>);
             }
         }
         #endregion

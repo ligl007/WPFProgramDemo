@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <LinearGradientBrush x:Key="WindowBackground" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="#FFE7C13F" Offset="0"/>
+        <GradientStop Color="#FFEEDB99" Offset="1"/>
+    </LinearGradientBrush>
+    <!--聊天字体Toolbar画刷-->
+    <SolidColorBrush x:Key="ChatToolBarBrush"  Color="#FF9D7B06"/>
+    <!--聊天Toolbar画刷-->
+    <SolidColorBrush x:Key="ChatToolBorderBrush" Color="#26EEDB99"/>
+    <!--鼠标滑过背景色-->
+    <SolidColorBrush x:Key="MouseOverBrush" Color="#7FEEDB99"/>
+    <!--鼠标选中项背景色-->
+    <LinearGradientBrush x:Key="SelectedBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#FFEEDB99" Offset="0"/>
+        <GradientStop Color="#FFE7C13F" Offset="1"/>
+    </LinearGradientBrush>
+    <!--滚动条背景画刷-->
+    <SolidColorBrush x:Key="BackgroundBrush" Color="#26EEDB98"/>
+    <!--滚动条滑条边框画刷-->
+    <SolidColorBrush x:Key="StandardBorderBrush" Color="#7FE7C13F"></SolidColorBrush>
+    <!--滚动条滑条填充色以及三角画刷-->
+    <SolidColorBrush x:Key="StandardBrush" Color="#4CEBCF6E"></SolidColorBrush>
+    <!--滚动条按下画刷-->
+    <SolidColorBrush x:Key="PressedBrush" Color="#FFEBCE6E"></SolidColorBrush>
+    <!--鼠标停留在滚动条画刷-->
+    <SolidColorBrush x:Key="HoverBrush" Color="#FFE7C13F"></SolidColorBrush>
+    <!--查找群三个按钮 鼠标滑过画刷-->
+    <SolidColorBrush x:Key="FindButtonMoveBrush" Color="#7FEBCE6E"></SolidColorBrush>
+    <!--查找群三个按钮 鼠标选中以及按下画刷-->
+    <SolidColorBrush x:Key="FindButtonCheckBrush" Color="#FFE7C13F"></SolidColorBrush>
+</ResourceDictionary>

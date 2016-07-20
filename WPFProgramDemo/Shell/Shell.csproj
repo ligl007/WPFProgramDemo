@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WPFProgramDemo</RootNamespace>
-    <AssemblyName>WPFProgramDemo</AssemblyName>
+    <AssemblyName>Shell</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -152,6 +152,10 @@
     <ProjectReference Include="..\Interface\IProject\IProject.csproj">
       <Project>{1505E349-22D8-491B-BE90-A72F1F1798CD}</Project>
       <Name>IProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugs\ResourcesStyle\ResourcesStyle.csproj">
+      <Project>{0763d295-5408-49af-9c6c-bbbe0087fbc4}</Project>
+      <Name>ResourcesStyle</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
