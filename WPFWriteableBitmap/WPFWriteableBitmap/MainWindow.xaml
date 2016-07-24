@@ -1,0 +1,17 @@
+﻿<Window x:Class="WPFWriteableBitmap.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFWriteableBitmap"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="768" Width="1024" WindowStartupLocation="CenterScreen">
+    <Grid x:Name="gvContent" Background="AliceBlue">
+        <Canvas Width="1024" Height="768">
+            <local:WriteableBitmapTrendLine LatestQuote="{Binding ViewModel}" Width="1024" Height="768"></local:WriteableBitmapTrendLine>
+        </Canvas>
+        <Canvas Width="1024" Height="768">
+            <Line X1="0" X2="1024" Y1="270" Y2="270" Stroke="Blue" ></Line>
+        </Canvas>
+    </Grid>
+</Window>
