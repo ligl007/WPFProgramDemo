@@ -48,8 +48,8 @@ namespace WPFWriteableBitmap
 
         #endregion
 
-        private const int COLS = 1024;
-        private const int ROWS = 768;
+        public const int COLS = 1024;
+        public const int ROWS = 768;
 
         private WriteableBitmap bitmap;
         private float maxPrice = 0.0F;
@@ -60,7 +60,8 @@ namespace WPFWriteableBitmap
         public WriteableBitmapTrendLine()
         {
             this.bitmap = new WriteableBitmap(COLS, ROWS, 96, 96, PixelFormats.Rgb24, null);
-
+            this.Width = COLS;
+            this.Height = ROWS;
             this.bitmap.Lock();
 
             using (Bitmap backBufferBitmap = new Bitmap(COLS, ROWS,
@@ -129,7 +130,7 @@ namespace WPFWriteableBitmap
                 float dy = (float)(ROWS / (this.maxPrice * 1.3));
                 for (int i = 0; i <= ordinal; i++)
                 {
-                    points[i].X = i ;
+                    points[i].X = i;
                     points[i].Y = (int)(this.prices[i]);
                 }
 
@@ -250,8 +251,104 @@ namespace WPFWriteableBitmap
         protected override void OnRender(DrawingContext drawingContext)
         {
             //设置坐标系方向成底部为X Y轴的原点
-            drawingContext.PushTransform(new ScaleTransform(1, -1, 0, RenderSize.Height / 2));
+            // drawingContext.PushTransform(new ScaleTransform(1, -1, 0, RenderSize.Height / 2));
             drawingContext.DrawImage(bitmap, new Rect(0, 0, RenderSize.Width, RenderSize.Height));
+        }
+
+        //https://msdn.microsoft.com/zh-cn/library/system.windows.media.imaging.writeablebitmap.adddirtyrect(v=vs.110).aspx
+        public void DrawPixel(int x, int y)
+        {
+            // Reserve the back buffer for updates.
+            bitmap.Lock();
+            unsafe
+            {
+                // Get a pointer to the back buffer.
+                int pBackBuffer = (int)bitmap.BackBuffer;
+                // Find the address of the pixel to draw.
+                //pBackBuffer += y * bitmap.BackBufferStride;
+                pBackBuffer += x * 3;
+                for (int i = 0; i < ROWS; i++)
+                {
+                    // Compute the pixel's color.
+                    int color_data = 255 << 0; // R
+                    color_data |= 0 << 8;   // G
+                    color_data |= 0 << 16;   // B
+                    //color_data |= 255 << 0;
+                    *((int*)pBackBuffer) = color_data;
+                    pBackBuffer += bitmap.BackBufferStride;
+                }
+                // Assign the color data to the pixel.
+            }
+            // Specify the area of the bitmap that changed.
+            bitmap.AddDirtyRect(new Int32Rect(0, 0, COLS, ROWS));
+
+            // Release the back buffer and make it available for display.
+            bitmap.Unlock();
+        }
+
+        public void DrawHorizontalLine(int x, int y)
+        {
+            // Reserve the back buffer for updates.
+            bitmap.Lock();
+            unsafe
+            {
+                // Get a pointer to the back buffer.
+                int pBackBuffer = (int)bitmap.BackBuffer;
+                // Find the address of the pixel to draw.
+                pBackBuffer += y * bitmap.BackBufferStride;
+                //pBackBuffer += x * 3;
+                for (int i = 0; i < Width; i++)
+                {
+                    // Compute the pixel's color.
+                    int color_data = 255 << 16; // R
+                    color_data |= 255 << 8;   // G
+                    color_data |= 255 << 0;   // B
+                    //color_data |= 255 << 0;
+                    *((int*)pBackBuffer) = color_data;
+                    pBackBuffer += 1 * 3;
+                }
+                // Assign the color data to the pixel.
+            }
+            // Specify the area of the bitmap that changed.
+            bitmap.AddDirtyRect(new Int32Rect(0, 0, COLS, ROWS));
+
+            // Release the back buffer and make it available for display.
+            bitmap.Unlock();
+        }
+
+        /// <summary>
+        ///  动态横线
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void DrawHorizontalLineDy(int x, int y)
+        {
+            // Reserve the back buffer for updates.
+            bitmap.Lock();
+            unsafe
+            {
+                // Get a pointer to the back buffer.
+                int pBackBuffer = (int)bitmap.BackBuffer;
+                // Find the address of the pixel to draw.
+                pBackBuffer += y * bitmap.BackBufferStride;
+                pBackBuffer += x * 3;
+                // Compute the pixel's color.
+
+                int color_data = 255 << 16; // R
+                color_data |= 255 << 8;   // G
+                color_data |= 255 << 0;   // B
+                                          //color_data |= 255 << 0;
+                *((int*)pBackBuffer) = color_data;
+
+
+            }
+            // Assign the color data to the pixel.
+
+            // Specify the area of the bitmap that changed.
+            bitmap.AddDirtyRect(new Int32Rect(0, 0, COLS, ROWS));
+
+            // Release the back buffer and make it available for display.
+            bitmap.Unlock();
         }
     }
 }

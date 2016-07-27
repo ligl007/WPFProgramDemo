@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1024" WindowStartupLocation="CenterScreen">
     <Grid x:Name="gvContent" Background="AliceBlue">
-        <Canvas Width="1024" Height="768">
-            <local:WriteableBitmapTrendLine LatestQuote="{Binding ViewModel}" Width="1024" Height="768"></local:WriteableBitmapTrendLine>
-        </Canvas>
+        <Grid Width="1024" Height="768" MouseLeftButtonDown="Canvas_MouseLeftButtonDown">
+            <local:WriteableBitmapTrendLine LatestQuote="{Binding ViewModel}"  x:Name="wrtBitmap"></local:WriteableBitmapTrendLine>
+        </Grid>
         <Canvas Width="1024" Height="768">
             <Line X1="0" X2="1024" Y1="270" Y2="270" Stroke="Blue" ></Line>
         </Canvas>

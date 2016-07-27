@@ -56,27 +56,27 @@ namespace WPFWriteableBitmap
                 OnPropertyChanged("ViewModel");
             }
         }
-        int prices = 1024;
+
         Random r = new Random();
         int x = 1;
+        int _y = 200;
         void timer_Tick(object sender, EventArgs e)
         {
 
             Dispatcher.Invoke(new Action(() =>
             {
-                MinuteQuoteViewModel tmp = new MinuteQuoteViewModel();
-                //tmp.LastPx = r.Next(1, 500);
-                //tmp.Ordinal = r.Next(1,prices+1);
-                tmp.LastPx = x;
-                tmp.Ordinal = x;
+                //MinuteQuoteViewModel tmp = new MinuteQuoteViewModel();
+                //tmp.LastPx = x;
+                //tmp.Ordinal = x;
+                //ViewModel = tmp;
                 x++;
-                ViewModel = tmp;
             }));
-            if (this.prices < x)
+            if (this.wrtBitmap.Width < x)
             {
                 x = 1;
             }
             //timer.Stop();
+            wrtBitmap.DrawHorizontalLineDy(x, _y);
         }
 
         private void btn_printScreen_Click(object sender, RoutedEventArgs e)
@@ -95,6 +95,20 @@ namespace WPFWriteableBitmap
         }
 
         #endregion
+
+        private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            double y = e.GetPosition(e.Source as Grid).Y;
+            _y = (int)y;
+            //double x = e.GetPosition(e.Source as Grid).X;
+            //Console.WriteLine(y + "   " + (this.Height - y) + "   " + x);
+            //if (x > this.Width)
+            //{
+            //    return;
+            //}
+            //wrtBitmap.DrawPixel((int)x, (int)y);
+            //wrtBitmap.DrawHorizontalLine((int)x, (int)y);
+        }
     }
 
     public class XYScale : FrameworkElement
