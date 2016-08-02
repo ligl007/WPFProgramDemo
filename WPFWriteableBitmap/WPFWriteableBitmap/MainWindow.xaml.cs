@@ -25,10 +25,7 @@ namespace WPFWriteableBitmap
         public MainWindow()
         {
             InitializeComponent();
-            timer = new System.Windows.Threading.DispatcherTimer();
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 10);   //间隔1秒
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();
+           
             this.DataContext = this;
             this.Loaded += MainWindow_Loaded;
             //timer_Tick(null, null);
@@ -58,31 +55,25 @@ namespace WPFWriteableBitmap
         }
 
         Random r = new Random();
-        int x = 1;
+        int x = 0;
         int _y = 200;
         void timer_Tick(object sender, EventArgs e)
         {
-
-            Dispatcher.Invoke(new Action(() =>
-            {
-                //MinuteQuoteViewModel tmp = new MinuteQuoteViewModel();
-                //tmp.LastPx = x;
-                //tmp.Ordinal = x;
-                //ViewModel = tmp;
-                x++;
-            }));
+            //Dispatcher.Invoke(new Action(() =>
+            //{
+            //    //MinuteQuoteViewModel tmp = new MinuteQuoteViewModel();
+            //    //tmp.LastPx = x;
+            //    //tmp.Ordinal = x;
+            //    //ViewModel = tmp;
+            //    //x++;
+            //}));
             if (this.wrtBitmap.Width < x)
             {
-                x = 1;
+                x = 0;
             }
             //timer.Stop();
             wrtBitmap.DrawHorizontalLineDy(x, _y);
-        }
-
-        private void btn_printScreen_Click(object sender, RoutedEventArgs e)
-        {
-
-
+            x++;
         }
 
         #region INotifyPropertyChanged 成员
@@ -98,29 +89,40 @@ namespace WPFWriteableBitmap
 
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            double y = e.GetPosition(e.Source as Grid).Y;
+            Point pp = e.GetPosition(e.Source as FrameworkElement);//WPF方法
+            double y = pp.Y;
             _y = (int)y;
-            //double x = e.GetPosition(e.Source as Grid).X;
-            //Console.WriteLine(y + "   " + (this.Height - y) + "   " + x);
-            //if (x > this.Width)
-            //{
-            //    return;
-            //}
+            double x = pp.X;
+            Console.WriteLine(y + "   " + (this.Height - y) + "   " + x);
+            if (x > this.Width)
+            {
+                return;
+            }
+            Point ppp = (e.Source as FrameworkElement).PointToScreen(pp);//WPF方法
+
             //wrtBitmap.DrawPixel((int)x, (int)y);
             //wrtBitmap.DrawHorizontalLine((int)x, (int)y);
         }
-    }
 
-    public class XYScale : FrameworkElement
-    {
-        protected override void OnRender(DrawingContext drawingContext)
+        private void btn_StartLine_Click(object sender, RoutedEventArgs e)
         {
-            //设置坐标系方向成底部为X Y轴的原点
-            drawingContext.PushTransform(new ScaleTransform(1, -1, 0, RenderSize.Height / 2));
-            System.Windows.Media.Pen pen = new System.Windows.Media.Pen();
-            pen.Thickness = 1;
-            pen.Brush = new SolidColorBrush(Colors.White);
-            drawingContext.DrawLine(pen, new Point(0, 500), new Point(500, 500));
+            timer = new System.Windows.Threading.DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 10);   //间隔1秒
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
         }
     }
+
+    //public class XYScale : FrameworkElement
+    //{
+    //    protected override void OnRender(DrawingContext drawingContext)
+    //    {
+    //        //设置坐标系方向成底部为X Y轴的原点
+    //        drawingContext.PushTransform(new ScaleTransform(1, -1, 0, RenderSize.Height / 2));
+    //        System.Windows.Media.Pen pen = new System.Windows.Media.Pen();
+    //        pen.Thickness = 1;
+    //        pen.Brush = new SolidColorBrush(Colors.White);
+    //        drawingContext.DrawLine(pen, new Point(0, 500), new Point(500, 500));
+    //    }
+    //}
 }
