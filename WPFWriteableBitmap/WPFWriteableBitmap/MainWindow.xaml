@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFWriteableBitmap"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="900" Width="1080" WindowStartupLocation="CenterScreen">
     <Grid x:Name="gvContent" Background="AliceBlue">
-        <Canvas Width="1024" Height="768">
-            <local:WriteableBitmapTrendLine LatestQuote="{Binding ViewModel}" Width="1024" Height="768"></local:WriteableBitmapTrendLine>
-        </Canvas>
-        <Canvas Width="1024" Height="768">
-            <Line X1="0" X2="1024" Y1="270" Y2="270" Stroke="Blue" ></Line>
-        </Canvas>
+        <Button Content="Start" Height="30" Width="120" Click="btn_StartLine_Click" Margin="10 10 0 0" VerticalAlignment="Top" HorizontalAlignment="Left"></Button>
+        <Grid Width="1024" Height="768">
+            <Canvas  PreviewMouseLeftButtonDown="Canvas_MouseLeftButtonDown"  IsHitTestVisible="True">
+                <local:WriteableBitmapTrendLine LatestQuote="{Binding ViewModel}"  x:Name="wrtBitmap"></local:WriteableBitmapTrendLine>
+                <Line X1="0" X2="1024" Y1="270" Y2="270" Stroke="Blue" ></Line>
+            </Canvas>
+        </Grid>
     </Grid>
 </Window>
